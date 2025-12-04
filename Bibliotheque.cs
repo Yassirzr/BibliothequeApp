@@ -81,15 +81,11 @@ namespace BibliothequeApp
         public void Sauvegarder(string cheminFichier)
         {
             try
-            {
-                using (var writer = new StreamWriter(cheminFichier))
-                {
-                    foreach (var doc in documents)
-                    {
-                        writer.WriteLine($"{doc.GetType().Name};{doc.Id};{doc.Titre};{doc.Auteur};{doc.Annee}");
+            {using (var writer = new StreamWriter(cheminFichier))
+                {foreach (var doc in documents)
+                    { writer.WriteLine($"{doc.GetType().Name};{doc.Id};{doc.Titre};{doc.Auteur};{doc.Annee}");
                     }
                 }
-
                 Console.WriteLine("Sauvegarde effectuée avec succès !");
             }
             catch (Exception ex)
@@ -108,8 +104,7 @@ namespace BibliothequeApp
                     return;
                 }
 
-                documents.Clear(); // On vide la liste avant de charger
-
+                documents.Clear();
                 var lignes = File.ReadAllLines(cheminFichier);
 
                 foreach (var ligne in lignes)
@@ -126,7 +121,7 @@ namespace BibliothequeApp
                     Document doc = null;
 
                     if (type == "Livre")
-                        doc = new Livre(id, titre, auteur, annee, 0); // nombrePages placeholder
+                        doc = new Livre(id, titre, auteur, annee, 0); 
                     else if (type == "Magazine")
                         doc = new Magazine(id, titre, auteur, annee, 0);
                     else if (type == "DocumentPDF")
@@ -146,3 +141,4 @@ namespace BibliothequeApp
     }
 
 }
+
